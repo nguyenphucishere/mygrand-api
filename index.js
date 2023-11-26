@@ -18,7 +18,7 @@ const OpenAI = new (require('openai')).OpenAI({ apiKey });
 
 const createPrompt = (sentence) => "Đối tượng của câu và loại câu, thời gian trong câu: \"" + sentence + "\" (trả lời ngắn gọn)"
 
-async function main(q) {
+async function getCommand(q) {
 
     const completion = await OpenAI.chat.completions.create({
         messages: [
@@ -42,8 +42,12 @@ async function main(q) {
 
 app.use(bodyParser.json({ limit: '50mb' }));
 
-app.post('/', async (req, res) => {
-    console.log(req.body)
+app.post('/get-command', async (req, res) => {
+    res.set({ 'content-type': 'application/json; charset=utf-8' });
+    res.send(await getCommand(req.body.text))
+})
+
+app.post('/get-text-from-voice', async (req, res) => {
     res.set({ 'content-type': 'application/json; charset=utf-8' });
 
     const imgBuffer = Buffer.from(req.body.audio, 'base64')
@@ -52,11 +56,24 @@ app.post('/', async (req, res) => {
     s.push(imgBuffer)
     s.push(null)
 
-    s.pipe(fs.createWriteStream("test.mp4"));
+    const url = 'https://api.fpt.ai/hmi/asr/general';
 
-    const ai_res = await main(req.body.q);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            api_key: process.env.FPT_API,
 
-    res.end(ai_res)
+        },
+        body: s.read()
+    })
+
+    const jsonBody = await response.json()
+
+
+    if (jsonBody.status == 0)
+        res.send({ ok: true, hypotheses: jsonBody.hypotheses })
+    else
+        res.send({ ok: false })
 
 })
 
