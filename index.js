@@ -37,7 +37,16 @@ async function getCommand(q) {
         response_format: { type: "json_object" },
     });
 
-    return completion.choices[0].message.content;
+    const content = JSON.parse(completion.choices[0].message.content);
+    const obj = Object.keys(content).map(i => {
+        if (i.toLowerCase().indexOf("đối tượng") != -1) {
+            return content[i];
+        }
+    }).filter(i => i != null);
+
+    if (obj.length <= 0) return { error: true };
+
+    return { object: obj[0] };
 }
 
 app.use(bodyParser.json({ limit: '50mb' }));
