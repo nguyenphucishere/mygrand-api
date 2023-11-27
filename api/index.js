@@ -9,7 +9,6 @@ const Readable = require('stream').Readable
 require('dotenv').config();
 
 
-
 const port = process.env.WEBPORT;
 const apiKey = process.env.API_KEY;
 
@@ -50,6 +49,7 @@ async function getCommand(q) {
 }
 
 app.use(bodyParser.json({ limit: '50mb' }));
+app.use(express.static('public'))
 
 app.post('/get-command', async (req, res) => {
     res.set({ 'content-type': 'application/json; charset=utf-8' });
