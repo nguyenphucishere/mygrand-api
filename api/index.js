@@ -51,12 +51,12 @@ async function getCommand(q) {
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(express.static('public'))
 
-app.post('/get-command', async (req, res) => {
+app.post('/api/get-command', async (req, res) => {
     res.set({ 'content-type': 'application/json; charset=utf-8' });
     res.send(await getCommand(req.body.text))
 })
 
-app.post('/get-text-from-voice', async (req, res) => {
+app.post('/api/get-text-from-voice', async (req, res) => {
     res.set({ 'content-type': 'application/json; charset=utf-8' });
 
     const imgBuffer = Buffer.from(req.body.audio, 'base64')
