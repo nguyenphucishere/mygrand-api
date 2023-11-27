@@ -15,7 +15,7 @@ const apiKey = process.env.API_KEY;
 
 const OpenAI = new (require('openai')).OpenAI({ apiKey });
 
-const createPrompt = (sentence) => "Đối tượng trong câu: \"" + sentence + "\" (trả lời ngắn gọn)"
+const createPrompt = (sentence) => "Object in sentence: \"" + sentence + "\" (reply concisely)"
 
 async function getCommand(q) {
 
