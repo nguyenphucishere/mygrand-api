@@ -27,6 +27,8 @@ async function getCommand(q) {
             },
             { role: "user", content: createPrompt('Cho tôi biết thời tiết hôm nay') },
             { role: "assistant", content: "Thời tiết hôm nay" },
+            { role: "user", content: createPrompt('Xem YouTube . ') },
+            { role: "assistant", content: "YouTube" },
             {
                 role: "user",
                 content: createPrompt(q)
