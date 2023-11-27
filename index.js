@@ -86,6 +86,10 @@ app.post('/get-text-from-voice', async (req, res) => {
 
 })
 
+app.get('', (req, res) => {
+    res.send("err");
+})
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
