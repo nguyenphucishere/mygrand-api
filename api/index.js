@@ -86,8 +86,8 @@ app.post('/get-text-from-voice', async (req, res) => {
 
 })
 
-app.get('', (req, res) => {
-    res.send("err");
+app.use('*', (req, res) => {
+    res.status(404).send('what???');
 })
 
 
