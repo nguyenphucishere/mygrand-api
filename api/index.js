@@ -39,6 +39,7 @@ async function getCommand(q) {
     });
 
     const content = JSON.parse(completion.choices[0].message.content);
+    console.log(content)
     const obj = Object.keys(content).map(i => {
         if (i.toLowerCase().indexOf("đối tượng") != -1) {
             return content[i];
