@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const fs = require("fs");
 const Readable = require('stream').Readable
+const path = require('path');
 
 
 
@@ -11,6 +12,7 @@ require('dotenv').config();
 
 const port = process.env.WEBPORT;
 const apiKey = process.env.API_KEY;
+const file = path.join(process.cwd(), 'sos.json')
 
 
 const OpenAI = new (require('openai')).OpenAI({ apiKey });
@@ -90,7 +92,7 @@ app.post('/api/get-text-from-voice', async (req, res) => {
 })
 
 app.get('/api/sos', async (req, res) => {
-    fs.readFile("./api/sos.json", (error, data) => {
+    fs.readFile(file, (error, data) => {
 
         if (error) {
             console.error(error);
@@ -108,7 +110,7 @@ app.get('/api/sos', async (req, res) => {
 })
 
 app.post('/api/sos/true', async (req, res) => {
-    fs.writeFile("api/sos.json", JSON.stringify({ sos: true }), (error) => {
+    fs.writeFile(file, JSON.stringify({ sos: true }), (error) => {
         res.json({ error: true });
     });
 
@@ -117,7 +119,7 @@ app.post('/api/sos/true', async (req, res) => {
 })
 
 app.post('/api/sos/false', async (req, res) => {
-    fs.writeFile("api/sos.json", JSON.stringify({ sos: false }), (error) => {
+    fs.writeFile(file, JSON.stringify({ sos: false }), (error) => {
         res.json({ error: true });
     });
 
