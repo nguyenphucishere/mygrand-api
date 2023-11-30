@@ -89,6 +89,43 @@ app.post('/api/get-text-from-voice', async (req, res) => {
 
 })
 
+app.get('/api/sos', async (req, res) => {
+    fs.readFile("./api/sos.json", (error, data) => {
+
+        if (error) {
+            console.error(error);
+
+            throw err;
+        }
+
+        const user = JSON.parse(data);
+        console.log(user);
+
+
+        res.json(user)
+    });
+
+})
+
+app.post('/api/sos/true', async (req, res) => {
+    fs.writeFile("./api/sos.json", JSON.stringify({ sos: true }), (error) => {
+        res.json({ error: true });
+    });
+
+
+    res.json({ error: false })
+})
+
+app.post('/api/sos/false', async (req, res) => {
+    fs.writeFile("./api/sos.json", JSON.stringify({ sos: false }), (error) => {
+        res.json({ error: true });
+    });
+
+
+    res.json({ error: false })
+})
+
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
