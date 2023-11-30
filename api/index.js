@@ -12,7 +12,7 @@ require('dotenv').config();
 
 const port = process.env.WEBPORT;
 const apiKey = process.env.API_KEY;
-const file = path.join(process.cwd(), 'tmp/sos.json')
+const file = path.join("/tmp", 'sos.json')
 
 
 const OpenAI = new (require('openai')).OpenAI({ apiKey });
