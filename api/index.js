@@ -92,36 +92,19 @@ app.post('/api/get-text-from-voice', async (req, res) => {
 })
 
 app.get('/api/sos', async (req, res) => {
-    fs.readFile(file, (error, data) => {
-
-        if (error) {
-            console.error(error);
-
-            throw err;
-        }
-
-        const user = JSON.parse(data);
-        console.log(user);
-
-
-        res.json(user)
-    });
+    res.json({ sos: process.env.SOS })
 
 })
 
 app.post('/api/sos/true', async (req, res) => {
-    fs.writeFile(file, JSON.stringify({ sos: true }), (error) => {
-        console.log(error)
-    });
+    process.env['SOS'] = true;
 
 
     res.json({ error: false })
 })
 
 app.post('/api/sos/false', async (req, res) => {
-    fs.writeFile(file, JSON.stringify({ sos: false }), (error) => {
-        console.log(error)
-    });
+    process.env['SOS'] = false;
 
 
     res.json({ error: false })
