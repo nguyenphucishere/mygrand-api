@@ -108,7 +108,7 @@ app.get('/api/sos', async (req, res) => {
 })
 
 app.post('/api/sos/true', async (req, res) => {
-    fs.writeFile("./api/sos.json", JSON.stringify({ sos: true }), (error) => {
+    fs.writeFile("api/sos.json", JSON.stringify({ sos: true }), (error) => {
         res.json({ error: true });
     });
 
@@ -117,7 +117,7 @@ app.post('/api/sos/true', async (req, res) => {
 })
 
 app.post('/api/sos/false', async (req, res) => {
-    fs.writeFile("./api/sos.json", JSON.stringify({ sos: false }), (error) => {
+    fs.writeFile("api/sos.json", JSON.stringify({ sos: false }), (error) => {
         res.json({ error: true });
     });
 
