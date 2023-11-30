@@ -111,7 +111,7 @@ app.get('/api/sos', async (req, res) => {
 
 app.post('/api/sos/true', async (req, res) => {
     fs.writeFile(file, JSON.stringify({ sos: true }), (error) => {
-        res.json({ error: true });
+        console.log(error)
     });
 
 
@@ -120,7 +120,7 @@ app.post('/api/sos/true', async (req, res) => {
 
 app.post('/api/sos/false', async (req, res) => {
     fs.writeFile(file, JSON.stringify({ sos: false }), (error) => {
-        res.json({ error: true });
+        console.log(error)
     });
 
 
